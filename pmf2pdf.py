@@ -13,14 +13,16 @@ class PMF2PDF(Scene):
     """
     Create animation of probability mass function (PMF) transforming
     into a probabiltiy distribution function (PDF).
+    Currently only supports Normal distribution.
     """
+    # Run with "manim -pql pmf2pdf.py PMF2PDF"
 
     # Normal distribution PDF
     def normal_dist(x, sigma=1, mu=0):
         coeff = 1 / (sigma * math.sqrt(2*PI))
         exponent = -1 / 2 * ( (x - mu) / sigma ) ** 2
         return coeff * math.exp(exponent)
-    
+
     def construct(self, pdf_function=normal_dist):
         axes = Axes(x_range = [-5, 6, 1], y_range = [0, 0.5, 0.1], x_length = 11, y_length = 7,
                     axis_config = {"include_tip": True}, x_axis_config = {"numbers_to_include": [0]}).add_coordinates()
@@ -55,3 +57,8 @@ class PMF2PDF(Scene):
         self.play(Create(graph), run_time = 2)
         self.play(Transform(normal_pmf_text, normal_pdf_text))
         self.wait(2)
+
+
+if __name__ == "__main__":
+    pmf2pdfobj = PMF2PDF()
+    # pmf2pdfobj.construct()
